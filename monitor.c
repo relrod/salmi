@@ -1397,7 +1397,7 @@ void cmd_dump (int start, int end)
   int lsize;
   char abuf[17];
 
-  if (start >= end)
+  if (start > end)
   {
     printf("invalid arguments\n");
     return;
@@ -1492,6 +1492,7 @@ int monitor6809 (void)
       case CMD_HELP:    puts("\n6809 monitor commands:                         ");
                         puts("HELP                  - shows this text          ");
                         puts("DUMP   start end      - dump memory start to end ");
+                        puts("DUMP   int            - dump memory at int       ");
                         puts("DASM   start end      - disassemble start to end "); 
                         puts("RUN    n              - run n instructions       ");
                         puts("GO     addr           - start executing at addr  ");
@@ -1511,7 +1512,10 @@ int monitor6809 (void)
                         puts("number formats $hex, @oct, %bin, dec           \n");
                         continue;
 
-      case CMD_DUMP:    if (arg_count != 3) break;
+      case CMD_DUMP:    if (arg_count == 2)
+                          arg[2] = arg[1];
+			if (arg_count < 2 || arg_count > 3)
+			  break;
                         cmd_dump(str_getnumber(arg[1])&0xffff,str_getnumber(arg[2])&0xffff);
                         continue;
 
