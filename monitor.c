@@ -1271,6 +1271,7 @@ command_t cmd_table [] =
   { CMD_BRKOFF,  "BRKOFF"  },
   { CMD_BRKON,   "BRKON"   },
   { CMD_QUIT,    "QUIT"    },
+  { CMD_QUIT,    "Q"       },
   { CMD_EXIT,    "EXIT"    },
 
   {-1,   NULL}
