@@ -22,6 +22,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <signal.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 #include "6809.h"
 
@@ -1466,7 +1468,7 @@ void cmd_show (void)
 
 int monitor6809 (void)
 {
-  char  cmd_str[50];
+  char  *cmd_str;
   char  *arg[10];
   int   arg_count;
 
@@ -1477,17 +1479,13 @@ int monitor6809 (void)
 
   for (;;)
   {
-
-    printf ("monitor>");
-
     fflush(stdout);
     fflush(stdin);
    
-    fgets(cmd_str,sizeof(cmd_str),stdin);
+    cmd_str = readline("monitor>");
 
-    arg_count = str_scan(cmd_str,arg,5);
-
-    if (arg_count == 0) { inst_count = 1; return 0; }
+    if (*cmd_str == '\0') { inst_count = 1; return 0; }
+    arg_count = str_scan(cmd_str,arg,5) + 1;
 
     switch (get_command(arg[0],cmd_table))
     {

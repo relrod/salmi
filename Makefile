@@ -1,4 +1,4 @@
-CFLAGS := -pedantic -ansi -Wall -O3
+CFLAGS := -pedantic -Wall -lreadline
 
 default: 6809
 
